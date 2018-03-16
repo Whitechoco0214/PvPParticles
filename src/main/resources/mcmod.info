@@ -1,0 +1,16 @@
+[
+{
+  "modid": "RankedRewardEffect",
+  "name": "Ranked Reward Effect",
+  "description": "Get ranked rewards easy!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SiroQ"],
+  "credits": "SiroQ",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
