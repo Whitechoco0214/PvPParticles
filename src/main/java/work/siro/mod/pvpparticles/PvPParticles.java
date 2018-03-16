@@ -23,7 +23,6 @@ import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.entity.projectile.EntityWitherSkull;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -43,7 +42,6 @@ import work.siro.mod.pvpparticles.classes.KillEffect;
 import work.siro.mod.pvpparticles.classes.Location;
 import work.siro.mod.pvpparticles.classes.ServerMode;
 import work.siro.mod.pvpparticles.classes.SiroQModDebugger;
-import work.siro.mod.pvpparticles.classes.SiroQUtils;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
 import work.siro.mod.pvpparticles.command.CommandPvPParticles;
 
@@ -51,14 +49,13 @@ import work.siro.mod.pvpparticles.command.CommandPvPParticles;
 public class PvPParticles
 {
 	public static Minecraft mc = Minecraft.getMinecraft();
-    public static final String MODID = "pvpparticles";
-    public static final String VERSION = "1.1";
+    public static final String MODID = "PvPParticles";
+    public static final String VERSION = "1.0";
     public static int attackEffect;
     public static int killEffect;
     public static int trailEffect;
     public static int serverMode;
     public static boolean shotBow;
-    public static boolean sentUpdateInfo = false;
     public static String nickName;
     public static SiroQModDebugger debugger = new SiroQModDebugger();
     public static Properties properties= new Properties();
@@ -233,19 +230,6 @@ public class PvPParticles
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
     	watchingPlayer.clear();
-    	if(!sentUpdateInfo) {
-    		sentUpdateInfo = true;
-	    	if(SiroQUtils.hasUpdate(MODID, VERSION)){
-	    		new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						if(mc.thePlayer != null) {
-							mc.thePlayer.addChatMessage(new ChatComponentText("§e[§cPvPParticles§e] §aPvP Particle has new version!"));
-						}
-					}
-	    		},5000);
-	    	}
-    	}
     }
 
 }
