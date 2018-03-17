@@ -52,7 +52,7 @@ public class PvPParticles
 {
 	public static Minecraft mc = Minecraft.getMinecraft();
     public static final String MODID = "pvpparticles";
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.2";
     public static int attackEffect;
     public static int killEffect;
     public static int trailEffect;
@@ -200,7 +200,7 @@ public class PvPParticles
     @SubscribeEvent
     public void onEntityJoin(EntityJoinWorldEvent event) {
     	Entity entity = event.entity;
-    	if (((entity instanceof EntityEgg)) || ((entity instanceof EntityFireball)) || ((entity instanceof EntityFishHook)) || ((entity instanceof EntityLargeFireball)) || ((entity instanceof EntityPotion)) || ((entity instanceof EntitySmallFireball)) || ((entity instanceof EntitySnowball)) || ((entity instanceof EntityWitherSkull)) || ((entity instanceof EntityThrowable))){
+    	if (((entity instanceof EntityEgg)) || ((entity instanceof EntityFireball))|| ((entity instanceof EntityLargeFireball)) || ((entity instanceof EntityPotion)) || ((entity instanceof EntitySmallFireball)) || ((entity instanceof EntitySnowball)) || ((entity instanceof EntityWitherSkull)) || ((entity instanceof EntityThrowable))){
     		if(mc.thePlayer != null) {
     			if(entity.getDistanceSqToEntity(mc.thePlayer) <= 5) {
 		    		projectileEntities.add(entity);
@@ -210,6 +210,11 @@ public class PvPParticles
     	if(entity instanceof EntityArrow && shotBow) {
     		projectileEntities.add(entity);
     		shotBow = false;
+    	}
+    	if(entity instanceof EntityFishHook) {
+    		if(((EntityFishHook) entity).angler.equals(mc.thePlayer)) {
+    			projectileEntities.add(entity);
+    		}
     	}
     }
     @SubscribeEvent
