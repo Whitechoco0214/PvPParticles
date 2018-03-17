@@ -61,6 +61,15 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 			case AttackEffect.SLIME:
 				buttonAttackParticle.displayString = "Attack: §aSlime";
 				break;
+			case AttackEffect.FLAME:
+				buttonAttackParticle.displayString = "Attack: §6Flame";
+				break;
+			case AttackEffect.PORTAL:
+				buttonAttackParticle.displayString = "Attack: §5Portal";
+				break;
+			case AttackEffect.ENCHANT:
+				buttonAttackParticle.displayString = "Attack: §bEnchant";
+				break;
 		}
 		buttonTrailParticle = new GuiButton(2, this.width / 2 - 75, this.height / 2, 150, 20, "");
 		switch(PvPParticles.trailEffect) {
@@ -192,6 +201,18 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 					PvPParticles.attackEffect = AttackEffect.SLIME;
 					break;
 				case AttackEffect.SLIME:
+					buttonAttackParticle.displayString = "Attack: §6Flame";
+					PvPParticles.attackEffect = AttackEffect.FLAME;
+					break;
+				case AttackEffect.FLAME:
+					buttonAttackParticle.displayString = "Attack: §5Portal";
+					PvPParticles.attackEffect = AttackEffect.PORTAL;
+					break;
+				case AttackEffect.PORTAL:
+					buttonAttackParticle.displayString = "Attack: §bEnchant";
+					PvPParticles.attackEffect = AttackEffect.ENCHANT;
+					break;
+				case AttackEffect.ENCHANT:
 					buttonAttackParticle.displayString = "Attack: §7None";
 					PvPParticles.attackEffect = AttackEffect.NONE;
 					break;

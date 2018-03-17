@@ -89,6 +89,15 @@ public class EffectManager {
 			case AttackEffect.SLIME:
 				emitParticleAtEntity(entity, EnumParticleTypes.SLIME);
 				break;
+			case AttackEffect.FLAME:
+				emitParticleAtEntity(entity, EnumParticleTypes.FLAME);
+				break;
+			case AttackEffect.PORTAL:
+				emitParticleAtEntity(entity, EnumParticleTypes.PORTAL);
+				break;
+			case AttackEffect.ENCHANT:
+				emitParticleAtEntity(entity, EnumParticleTypes.ENCHANTMENT_TABLE);
+				break;
 		}
 	}
 
