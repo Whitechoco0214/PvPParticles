@@ -64,8 +64,11 @@ public class EffectManager {
 				spawnParticle(entity, EnumParticleTypes.HEART);
 				break;
 			case TrailEffect.NOTE:
+				entity.getEntityWorld().spawnParticle(EnumParticleTypes.NOTE, entity.posX, entity.posY, entity.posZ,noteColor/24, 0, 0, new int[0]);
 				noteColor++;
-				entity.getEntityWorld().spawnParticle(EnumParticleTypes.NOTE, entity.posX, entity.posY, entity.posZ, noteColor/24, 0, 0, new int[0]);
+				if(noteColor >= 25) {
+					noteColor = 0;
+				}
 				break;
 			case TrailEffect.GREENSTAR:
 				spawnParticle(entity, EnumParticleTypes.VILLAGER_HAPPY);
