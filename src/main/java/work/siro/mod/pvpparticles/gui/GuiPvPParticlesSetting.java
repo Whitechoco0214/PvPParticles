@@ -34,6 +34,9 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 			case KillEffect.REDSTONE:
 				buttonKillParticle.displayString = "Kill: §cRedstone";
 				break;
+			case KillEffect.LAPIS:
+				buttonKillParticle.displayString = "Kill: §1Lapis";
+				break;
 			case KillEffect.DIAMOND:
 				buttonKillParticle.displayString = "Kill: §bDiamond";
 				break;
@@ -166,6 +169,10 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 					PvPParticles.killEffect = KillEffect.REDSTONE;
 					break;
 				case KillEffect.REDSTONE:
+					buttonKillParticle.displayString = "Kill: §1Lapis";
+					PvPParticles.killEffect = KillEffect.LAPIS;
+					break;
+				case KillEffect.LAPIS:
 					buttonKillParticle.displayString = "Kill: §bDiamond";
 					PvPParticles.killEffect = KillEffect.DIAMOND;
 					break;

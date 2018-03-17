@@ -19,6 +19,9 @@ public class EffectManager {
 			case KillEffect.REDSTONE:
 				playAuxSFX(entity, Blocks.redstone_block);
 				break;
+			case KillEffect.LAPIS:
+				playAuxSFX(entity,Blocks.lapis_block);
+				break;
 			case KillEffect.DIAMOND:
 				playAuxSFX(entity, Blocks.diamond_block);
 				break;
@@ -40,6 +43,9 @@ public class EffectManager {
 				break;
 			case KillEffect.REDSTONE:
 				playAuxSFX(x,y,z,eyeHeight,Blocks.redstone_block);
+				break;
+			case KillEffect.LAPIS:
+				playAuxSFX(x,y,z,eyeHeight,Blocks.lapis_block);
 				break;
 			case KillEffect.DIAMOND:
 				playAuxSFX(x,y,z,eyeHeight,Blocks.diamond_block);
