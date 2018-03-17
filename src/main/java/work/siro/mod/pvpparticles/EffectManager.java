@@ -82,8 +82,10 @@ public class EffectManager {
 				break;
 			case AttackEffect.CRITICAL:
 				emitParticleAtEntity(entity, EnumParticleTypes.CRIT);
+				break;
 			case AttackEffect.SLIME:
 				emitParticleAtEntity(entity, EnumParticleTypes.SLIME);
+				break;
 		}
 	}
 
