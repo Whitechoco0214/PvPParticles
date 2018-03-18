@@ -1,0 +1,16 @@
+[
+{
+  "modid": "pvpparticles",
+  "name": "PvP Particles",
+  "description": "Additional particles for PvP!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SiroQ"],
+  "credits": "SiroQ",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
