@@ -27,6 +27,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
@@ -69,10 +70,9 @@ public class PvPParticles
     public static HashMap<String,Location> watchingPlayer = new HashMap<String,Location>();
 
 
-    @SuppressWarnings("deprecation")
 	@EventHandler
     public void init(FMLInitializationEvent event) {
-	    FMLCommonHandler.instance().bus().register(this);
+	    MinecraftForge.EVENT_BUS.register(this);
 	    ClientCommandHandler.instance.registerCommand(new CommandPvPParticles());
 	    if(!propertiesFile.exists()) {
 	    	try {

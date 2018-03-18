@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import work.siro.mod.pvpparticles.PvPParticles;
@@ -134,16 +134,14 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void display(){
-	    FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	    initGui();
 	}
 
-	@SuppressWarnings("deprecation")
 	@SubscribeEvent
 	public void onClientTick(TickEvent.ClientTickEvent event){
-		FMLCommonHandler.instance().bus().unregister(this);
+		MinecraftForge.EVENT_BUS.unregister(this);
 		Minecraft.getMinecraft().displayGuiScreen(this);
 	}
 
