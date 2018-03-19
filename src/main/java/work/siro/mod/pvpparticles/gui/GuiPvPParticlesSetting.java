@@ -18,6 +18,7 @@ import work.siro.mod.pvpparticles.classes.ServerMode;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
 
 public class GuiPvPParticlesSetting extends GuiScreen{
+	private static GuiTextField blockIdField;
 	private GuiButton buttonKillParticle;
 	private GuiButton buttonAttackParticle;
 	private GuiButton buttonTrailParticle;
@@ -26,28 +27,18 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 
 	@Override
 	public void initGui() {
+		blockIdField = new GuiTextField(5,this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 66, 150, 20);
+		blockIdField.setText(String.valueOf(PvPParticles.killBlockID));
+		blockIdField.setFocused(false);
+		blockIdField.setVisible(false);
 		buttonKillParticle = new GuiButton(0, this.width / 2 - 75, this.height / 2 - 44, 150, 20, "");
 		switch(PvPParticles.killEffect) {
 			case KillEffect.NONE:
 				buttonKillParticle.displayString = "Kill: §7None";
 				break;
-			case KillEffect.REDSTONE:
-				buttonKillParticle.displayString = "Kill: §cRedstone";
-				break;
-			case KillEffect.LAPIS:
-				buttonKillParticle.displayString = "Kill: §1Lapis";
-				break;
-			case KillEffect.DIAMOND:
-				buttonKillParticle.displayString = "Kill: §bDiamond";
-				break;
-			case KillEffect.EMERALD:
-				buttonKillParticle.displayString = "Kill: §aEmerald";
-				break;
-			case KillEffect.ICE:
-				buttonKillParticle.displayString = "Kill: §bIce";
-				break;
-			case KillEffect.SLIME:
-				buttonKillParticle.displayString = "Kill: §aSlime";
+			case KillEffect.BLOCKBREAK:
+				buttonKillParticle.displayString = "Kill: §fBlock Break";
+				blockIdField.setVisible(true);
 				break;
 		}
 		buttonAttackParticle = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150 , 20,"");
@@ -119,8 +110,22 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		if(nickNameField.getVisible()) {
-			nickNameField.textboxKeyTyped(typedChar, keyCode);
-			PvPParticles.nickName = nickNameField.getText();
+			if(nickNameField.isFocused()) {
+				nickNameField.textboxKeyTyped(typedChar, keyCode);
+				PvPParticles.nickName = nickNameField.getText();
+			}
+		}
+		if(blockIdField.getVisible()) {
+			if(blockIdField.isFocused()) {
+				try {
+					blockIdField.textboxKeyTyped(typedChar, keyCode);
+					PvPParticles.killBlockID = Integer.valueOf(blockIdField.getText());
+				}catch(Exception e) {
+					if(blockIdField.getText() != null && blockIdField.getText().length() > 0){
+					    blockIdField.setText(blockIdField.getText().substring(0, blockIdField.getText().length()-1));
+					}
+				}
+			}
 		}
 		super.keyTyped(typedChar, keyCode);
 	}
@@ -129,8 +134,9 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawDefaultBackground();
 		nickNameField.drawTextBox();
-		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-66, 16777215);
-		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-55, 16777215);
+		blockIdField.drawTextBox();
+		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-88, 16777215);
+		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-77, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -163,31 +169,13 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 		if(button.id == 0) {
 			switch(PvPParticles.killEffect) {
 				case KillEffect.NONE:
-					buttonKillParticle.displayString = "Kill: §cRedstone";
-					PvPParticles.killEffect = KillEffect.REDSTONE;
+					buttonKillParticle.displayString = "Kill: §fBlock Break";
+					blockIdField.setVisible(true);
+					PvPParticles.killEffect = KillEffect.BLOCKBREAK;
 					break;
-				case KillEffect.REDSTONE:
-					buttonKillParticle.displayString = "Kill: §1Lapis";
-					PvPParticles.killEffect = KillEffect.LAPIS;
-					break;
-				case KillEffect.LAPIS:
-					buttonKillParticle.displayString = "Kill: §bDiamond";
-					PvPParticles.killEffect = KillEffect.DIAMOND;
-					break;
-				case KillEffect.DIAMOND:
-					buttonKillParticle.displayString = "Kill: §aEmerald";
-					PvPParticles.killEffect = KillEffect.EMERALD;
-					break;
-				case KillEffect.EMERALD:
-					buttonKillParticle.displayString = "Kill: §bIce";
-					PvPParticles.killEffect = KillEffect.ICE;
-					break;
-				case KillEffect.ICE:
-					buttonKillParticle.displayString = "Kill: §aSlime";
-					PvPParticles.killEffect = KillEffect.SLIME;
-					break;
-				case KillEffect.SLIME:
+				case KillEffect.BLOCKBREAK:
 					buttonKillParticle.displayString = "Kill: §7None";
+					blockIdField.setVisible(false);
 					PvPParticles.killEffect = KillEffect.NONE;
 					break;
 			}
@@ -265,13 +253,22 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 	@Override
 	public void updateScreen() {
 		nickNameField.updateCursorCounter();
+		blockIdField.updateCursorCounter();
 		super.updateScreen();
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
+		blockIdField.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
 	private static void saveConfig() {
 		try {
 			PvPParticles.properties.load(new FileInputStream(PvPParticles.propertiesFile));
 			PvPParticles.properties.setProperty("killeffect", String.valueOf(PvPParticles.killEffect));
+			PvPParticles.properties.setProperty("killblock", String.valueOf(blockIdField.getText()));
 			PvPParticles.properties.setProperty("attackeffect", String.valueOf(PvPParticles.attackEffect));
 			PvPParticles.properties.setProperty("traileffect", String.valueOf(PvPParticles.trailEffect));
 			PvPParticles.properties.setProperty("servermode", String.valueOf(PvPParticles.serverMode));
