@@ -1,6 +1,5 @@
 package work.siro.mod.pvpparticles;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
@@ -16,7 +15,7 @@ public class EffectManager {
 			case KillEffect.NONE:
 				break;
 			case KillEffect.BLOCKBREAK:
-				playBlockBreak(entity,Block.getBlockById(PvPParticles.killBlockID));
+				playBlockBreak(entity,PvPParticles.killBlockID);
 				break;
 		}
 	}
@@ -26,7 +25,7 @@ public class EffectManager {
 			case KillEffect.NONE:
 				break;
 			case KillEffect.BLOCKBREAK:
-				playBlockBreak(x,y,z,eyeHeight,Block.getBlockById(PvPParticles.killBlockID));
+				playBlockBreak(x,y,z,eyeHeight,PvPParticles.killBlockID);
 				break;
 		}
 	}
@@ -76,12 +75,12 @@ public class EffectManager {
 		}
 	}
 
-	private static void playBlockBreak(Entity entity,Block blockType) {
-		PvPParticles.mc.renderGlobal.playAuxSFX(null, 2001, new BlockPos(entity.posX,entity.posY+entity.getEyeHeight(),entity.posZ), Block.getStateId(blockType.getDefaultState()));
+	private static void playBlockBreak(Entity entity,int blockId) {
+		PvPParticles.mc.renderGlobal.playAuxSFX(null, 2001, new BlockPos(entity.posX,entity.posY+entity.getEyeHeight(),entity.posZ), blockId);
 	}
 
-	private static void playBlockBreak(double x , double y , double z ,double eyeHeight,Block blockType) {
-		PvPParticles.mc.renderGlobal.playAuxSFX(null, 2001, new BlockPos(x,y+eyeHeight,z), Block.getStateId(blockType.getDefaultState()));
+	private static void playBlockBreak(double x , double y , double z ,double eyeHeight,int blockId) {
+		PvPParticles.mc.renderGlobal.playAuxSFX(null, 2001, new BlockPos(x,y+eyeHeight,z), blockId);
 	}
 
 	private static void spawnParticle(Entity entity,EnumParticleTypes particleType) {
