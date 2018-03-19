@@ -11,7 +11,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
 
-public class SiroQUtils {
+public class SiroQModUtils {
 	public static boolean hasUpdate(final String modName,final String modVersion) {
 		try {
 			URL u = new URL("https://siro.work/mods/"+modName+"/version.txt");
@@ -48,6 +48,10 @@ public class SiroQUtils {
 			return false;
 		}
 
+	}
+
+	public static String removeColorCode(final String text) {
+		return text.replaceAll("§0", "").replaceAll("§1", "").replaceAll("§2", "").replaceAll("§3", "").replaceAll("§4", "").replaceAll("§5", "").replaceAll("§6", "").replaceAll("§7", "").replaceAll("§8", "").replaceAll("§9", "").replaceAll("§a", "").replaceAll("§b", "").replaceAll("§c", "").replaceAll("§d", "").replaceAll("§e", "").replaceAll("§f", "").replaceAll("§k", "").replaceAll("§l", "").replaceAll("§m", "").replaceAll("§n", "").replaceAll("§o", "").replaceAll("§r", "");
 	}
 
 }

@@ -43,7 +43,7 @@ import work.siro.mod.pvpparticles.classes.KillEffect;
 import work.siro.mod.pvpparticles.classes.Location;
 import work.siro.mod.pvpparticles.classes.ServerMode;
 import work.siro.mod.pvpparticles.classes.SiroQModDebugger;
-import work.siro.mod.pvpparticles.classes.SiroQUtils;
+import work.siro.mod.pvpparticles.classes.SiroQModUtils;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
 import work.siro.mod.pvpparticles.command.CommandPvPParticles;
 
@@ -107,6 +107,7 @@ public class PvPParticles
 	    	e.printStackTrace();
 	    }
     }
+
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
     	if(event.source.getEntity() != null) {
@@ -152,6 +153,17 @@ public class PvPParticles
     				}
     			}
     		}
+    		if(event.type == 2) {
+    			if(message.contains("KILL!")) {
+    				String player = SiroQModUtils.removeColorCode(message).replaceAll(" KILL!", "");
+    				if(watchingPlayer.containsKey(player)) {
+    					Location loc = watchingPlayer.get(player);
+    					EffectManager.playKillEffect(loc.x, loc.y, loc.z, loc.eyeHeight);
+    					watchingPlayer.remove(player);
+    					return;
+    				}
+    			}
+    		}
     	}else if(serverMode == ServerMode.HYPIXELNICK) {
     		String message = event.message.getUnformattedText();
     		for(String killMessage : skyWarsKillMessages) {
@@ -183,6 +195,17 @@ public class PvPParticles
 	    					watchingPlayer.remove(player);
 	    					return;
 	    				}
+    				}
+    			}
+    		}
+    		if(event.type == 2) {
+    			if(message.contains("KILL!")) {
+    				String player = SiroQModUtils.removeColorCode(message).replaceAll(" KILL!", "");
+    				if(watchingPlayer.containsKey(player)) {
+    					Location loc = watchingPlayer.get(player);
+    					EffectManager.playKillEffect(loc.x, loc.y, loc.z, loc.eyeHeight);
+    					watchingPlayer.remove(player);
+    					return;
     				}
     			}
     		}
@@ -249,7 +272,7 @@ public class PvPParticles
     	watchingPlayer.clear();
     	if(!sentUpdateInfo) {
     		sentUpdateInfo = true;
-	    	if(SiroQUtils.hasUpdate(MODID, VERSION)){
+	    	if(SiroQModUtils.hasUpdate(MODID, VERSION)){
 	    		new Timer().schedule(new TimerTask() {
 					@Override
 					public void run() {
