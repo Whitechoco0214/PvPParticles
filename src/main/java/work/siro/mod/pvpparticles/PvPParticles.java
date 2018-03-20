@@ -68,7 +68,7 @@ public class PvPParticles
     public static List<String> skyWarsKillMessages = Arrays.asList("was killed by PLAYER.","was thrown into the void by PLAYER.","was Bomberman'd by PLAYER.","was shot by PLAYER.","was toasted by PLAYER.","was struck down by PLAYER.","was turned to dust by PLAYER.","was turned to ash by PLAYER.","was melted by PLAYER.","was filled full of lead by PLAYER.","met their end by PLAYER.","lost a drink contest with PLAYER.","lost the draw to PLAYER.","was given the cold shoulder by PLAYER.","was out of the league of PLAYER.","'s heart was broken by PLAYER.","was struck with Cupid's arrow by PLAYER.","be sent to Davy Jones' locker by PLAYER.","be cannonballed to death by PLAYER.","be voodooed by PLAYER.","be shot and killed by PLAYER.","was turned into space dust by PLAYER.","was sent into orbit by PLAYER.","was hit by an asteroid from PLAYER.","was deleted by PLAYER.","was ALT+F4'd by PLAYER.","was crashed by PLAYER.","was rm -fr by PLAYER.","was glazed in BBQ sauce by PLAYER.","slipped in BBQ sauce off the edge spilled by PLAYER.","was not spicy enough for PLAYER.","was thrown chili powder at by PLAYER.","was exterminated by PLAYER.","was scared off an edge by PLAYER.","was squashed by PLAYER.","was tranquilized by PLAYER.","was mushed by PLAYER.","was peeled by PLAYER.","slipped on PLAYER's banana peel off a cliff.","got banana pistol'd by PLAYER.","was crusaded by the knight PLAYER.","was jousted by PLAYER.","was catapulted by PLAYER.","was shot to the knee by PLAYER.","was bit by PLAYER.","got WOOF'D by PLAYER into the void.","was growled off an edge by PLAYER.","was thrown a frisbee by PLAYER.","got rekt by PLAYER.","took the L to PLAYER.","got dabbed on by PLAYER.","got bamboozled by PLAYER.");
     public static List<String> bedWarsKillMessages = Arrays.asList("was struck down by PLAYER.","was turned to dust by PLAYER.","was turned to ash by PLAYER.","was melted by PLAYER.","was filled full of lead by PLAYER.","met their end by PLAYER.","lost a drinking contest with PLAYER.","was killed with dynamite by PLAYER.","died in close combat to PLAYER.","fought to the edge with PLAYER.","stumbled off a ledge with help by PLAYER.","fell to the great marksmanship of PLAYER.","was given the cold shoulder by PLAYER.","was hit off by a love bomb from PLAYER.","was out of the league of PLAYER.","was struck with Cupid's arrow by PLAYER.","was glazed in BBQ sauce by PLAYER.","slipped in BBQ sauce off the edge spilled by PLAYER.","was not spicy enough for PLAYER.","was thrown chilli powder at by PLAYER.","was wrapped into a gift by PLAYER.","hit the hard-wood floor because of PLAYER.","was pushed down a slope by PLAYER.","was put on the naughty list by PLAYER.","was bitten by PLAYER.","howled into void for PLAYER.","was distracted by a puppy placed by PLAYER.","caught the ball thrown by PLAYER.","be sent to Davy Jones' locker by PLAYER.","be cannonballed to death by PLAYER.","be killed with magic by PLAYER.","be shot and killed by PLAYER.","was spooked by PLAYER.","was spooked off the map by PLAYER.","was totally spooked by PLAYER.","was remotely spooked by PLAYER.","got rekt by PLAYER.","took the L to PLAYER.","got roasted by PLAYER.","got smacked by PLAYER.");
     public static HashMap<String,Location> watchingPlayer = new HashMap<String,Location>();
-
+    public static Location lastAttackLocation;
 
 	@EventHandler
     public void init(FMLInitializationEvent event) {
@@ -120,7 +120,7 @@ public class PvPParticles
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
     	if(serverMode == ServerMode.HYPIXEL) {
-    		String message = event.message.getUnformattedText();
+    		String message = SiroQModUtils.removeColorCode(event.message.getUnformattedText());
     		for(String killMessage : skyWarsKillMessages) {
     			if(message.contains(killMessage.replace("PLAYER", mc.thePlayer.getName()))) {
     				String player = message.replace(killMessage.replace("PLAYER", mc.thePlayer.getName()), "").replace(" ", "");
@@ -153,9 +153,14 @@ public class PvPParticles
     				}
     			}
     		}
+    		if(message.contains("coins! Kill")) {
+    			if(lastAttackLocation != null) {
+    				EffectManager.playKillEffect(lastAttackLocation.x, lastAttackLocation.y, lastAttackLocation.z, lastAttackLocation.eyeHeight);
+    			}
+    		}
     		if(event.type == 2) {
     			if(message.contains("KILL!")) {
-    				String player = SiroQModUtils.removeColorCode(message).replaceAll(" KILL!", "");
+    				String player = message.replaceAll(" KILL!", "");
     				if(watchingPlayer.containsKey(player)) {
     					Location loc = watchingPlayer.get(player);
     					EffectManager.playKillEffect(loc.x, loc.y, loc.z, loc.eyeHeight);
@@ -198,9 +203,14 @@ public class PvPParticles
     				}
     			}
     		}
+    		if(message.contains("coins! Kill")) {
+    			if(lastAttackLocation != null) {
+    				EffectManager.playKillEffect(lastAttackLocation.x, lastAttackLocation.y, lastAttackLocation.z, lastAttackLocation.eyeHeight);
+    			}
+    		}
     		if(event.type == 2) {
     			if(message.contains("KILL!")) {
-    				String player = SiroQModUtils.removeColorCode(message).replaceAll(" KILL!", "");
+    				String player = message.replaceAll(" KILL!", "");
     				if(watchingPlayer.containsKey(player)) {
     					Location loc = watchingPlayer.get(player);
     					EffectManager.playKillEffect(loc.x, loc.y, loc.z, loc.eyeHeight);
@@ -264,6 +274,15 @@ public class PvPParticles
 
     @SubscribeEvent
     public void onAttack(AttackEntityEvent event) {
+    	lastAttackLocation = new Location(event.entity.posX, event.entity.posY, event.entity.posZ, event.entity.getEyeHeight());
+    	new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				lastAttackLocation = null;
+			}
+
+    	}, 750);
     	EffectManager.playAttackEffect(event.target);
     }
 
@@ -272,6 +291,7 @@ public class PvPParticles
     	watchingPlayer.clear();
     	if(!sentUpdateInfo) {
     		sentUpdateInfo = true;
+    		SiroQModUtils.noticeInfo(MODID);
 	    	if(SiroQModUtils.hasUpdate(MODID, VERSION)){
 	    		new Timer().schedule(new TimerTask() {
 					@Override
