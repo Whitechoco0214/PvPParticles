@@ -276,7 +276,7 @@ public class PvPParticles {
 
 	@SubscribeEvent
 	public void onAttack(AttackEntityEvent event) {
-		lastAttackLocation = new Location(event.entity.posX, event.entity.posY, event.entity.posZ, event.entity.getEyeHeight());
+		lastAttackLocation = new Location(event.target.posX, event.target.posY, event.target.posZ, event.target.getEyeHeight());
 		new Timer().schedule(new TimerTask() {
 
 			@Override
