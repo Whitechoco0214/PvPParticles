@@ -96,7 +96,7 @@ public class PvPParticles {
 			}
 			try {
 				killBlockID = Integer.valueOf(properties.getProperty("killblock","0"));
-			}catch(NumberFormatException e) {
+			} catch(NumberFormatException e) {
 				killBlockID = 0;
 			}
 			attackEffect = Integer.valueOf(properties.getProperty("attackeffect","0"));
@@ -192,7 +192,7 @@ public class PvPParticles {
 							watchingPlayer.remove(player);
 							return;
 						}
-					}else {
+					} else {
 						String player = message.replace(killMessage.replace("PLAYER", nickName), "").replace("FINAL KILL!", "").replace(" ", "");
 						if(watchingPlayer.containsKey(player)) {
 							Location loc = watchingPlayer.get(player);
@@ -265,12 +265,10 @@ public class PvPParticles {
 	public void onShot(ArrowLooseEvent event) {
 		shotBow = true;
 		new Timer().schedule(new TimerTask() {
-
 			@Override
 			public void run() {
 				shotBow = false;
 			}
-
 		}, 750);
 	}
 
@@ -278,12 +276,10 @@ public class PvPParticles {
 	public void onAttack(AttackEntityEvent event) {
 		lastAttackLocation = new Location(event.target.posX, event.target.posY, event.target.posZ, event.target.getEyeHeight());
 		new Timer().schedule(new TimerTask() {
-
 			@Override
 			public void run() {
 				lastAttackLocation = null;
 			}
-
 		}, 750);
 		EffectManager.playAttackEffect(event.target);
 	}
@@ -302,7 +298,7 @@ public class PvPParticles {
 							mc.thePlayer.addChatMessage(new ChatComponentText("§e[§cPvPParticles§e] §aPvP Particle has new version!"));
 						}
 					}
-				},5000);
+				}, 5000);
 			}
 		}
 	}
