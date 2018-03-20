@@ -8,6 +8,7 @@ import work.siro.mod.pvpparticles.classes.KillEffect;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
 
 public class EffectManager {
+
 	private static double noteColor = 0;
 
 	public static void playKillEffect(Entity entity) {
@@ -86,7 +87,6 @@ public class EffectManager {
 	private static void spawnParticle(Entity entity,EnumParticleTypes particleType) {
 		entity.getEntityWorld().spawnParticle(particleType, entity.posX, entity.posY, entity.posZ, 0, 0, 0, new int[0]);
 	}
-
 
 	private static void emitParticleAtEntity(Entity entity,EnumParticleTypes particleType) {
 		PvPParticles.mc.effectRenderer.emitParticleAtEntity(entity, particleType);

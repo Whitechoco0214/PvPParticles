@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
 public class SiroQModDebugger {
+
 	private int status = 0;
 	private static boolean debugging = false;
 	private String debug = "§c§l[DEBUG] ";
@@ -15,7 +16,7 @@ public class SiroQModDebugger {
 				if(status == 0) {
 					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(error+"§f"+line));
 					status = 1;
-				}else {
+				} else {
 					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(error+"§7"+line));
 					status = 0;
 				}
@@ -29,13 +30,12 @@ public class SiroQModDebugger {
 				if(status == 0) {
 					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(debug+"§f"+line));
 					status = 1;
-				}else {
+				} else {
 					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(debug+"§7"+line));
 					status = 0;
 				}
 			}
 		}
 	}
-
 
 }

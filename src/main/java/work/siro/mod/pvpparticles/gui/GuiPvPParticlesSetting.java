@@ -17,7 +17,8 @@ import work.siro.mod.pvpparticles.classes.KillEffect;
 import work.siro.mod.pvpparticles.classes.ServerMode;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
 
-public class GuiPvPParticlesSetting extends GuiScreen{
+public class GuiPvPParticlesSetting extends GuiScreen {
+
 	private static GuiTextField blockIdField;
 	private GuiButton buttonKillParticle;
 	private GuiButton buttonAttackParticle;
@@ -164,8 +165,6 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 		return false;
 	}
 
-
-
 	@Override
 	public void onGuiClosed() {
 		saveConfig();
@@ -187,7 +186,7 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 					PvPParticles.killEffect = KillEffect.NONE;
 					break;
 			}
-		}else if(button.id == 1) {
+		} else if(button.id == 1) {
 			switch(PvPParticles.attackEffect) {
 				case AttackEffect.NONE:
 					buttonAttackParticle.displayString = "Attack: §bSharpness";
@@ -218,7 +217,7 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 					PvPParticles.attackEffect = AttackEffect.NONE;
 					break;
 			}
-		}else if(button.id == 2) {
+		} else if(button.id == 2) {
 			switch(PvPParticles.trailEffect) {
 				case TrailEffect.NONE:
 					buttonTrailParticle.displayString = "Trail: §dHeart";
@@ -237,7 +236,7 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 					PvPParticles.trailEffect = TrailEffect.NONE;
 					break;
 			}
-		}else if(button.id == 3) {
+		} else if(button.id == 3) {
 			switch(PvPParticles.serverMode) {
 				case ServerMode.NORMAL:
 					buttonModeToggle.displayString = "Mode: §fHypixel";
@@ -273,7 +272,7 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 			if(nickNameField.getText().equals("§7Nick Name")) {
 				nickNameField.setText("");
 			}
-		}else {
+		} else {
 			if(PvPParticles.nickName.isEmpty()) {
 				nickNameField.setText("§7Nick Name");
 			}
@@ -283,7 +282,7 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 			if(blockIdField.getText().equals("§7Block ID (Number)")) {
 				blockIdField.setText("");
 			}
-		}else {
+		} else {
 			if(PvPParticles.nickName.isEmpty()) {
 				blockIdField.setText("§7Block ID (Number)");
 			}
@@ -301,23 +300,9 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 			PvPParticles.properties.setProperty("servermode", String.valueOf(PvPParticles.serverMode));
 			PvPParticles.properties.setProperty("nickname", PvPParticles.nickName);
 			PvPParticles.properties.store(new FileOutputStream(PvPParticles.propertiesFile), "Dont change it!");
-		}catch(IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

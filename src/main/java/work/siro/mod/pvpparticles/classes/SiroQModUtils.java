@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
 public class SiroQModUtils {
+
 	public static boolean hasUpdate(final String modName,final String modVersion) {
 		try {
 			URL u = new URL("https://siro.work/mods/"+modName+"/version.txt");
@@ -24,35 +25,34 @@ public class SiroQModUtils {
 			HttpsURLConnection connect = (HttpsURLConnection)u.openConnection();
 			connect.setRequestMethod("GET");
 			SSLContext sslContext = SSLContext.getInstance("SSL");
-	        sslContext.init(null,new X509TrustManager[] { new NoCheckTrustManager() },new SecureRandom());
-	        connect.setSSLSocketFactory(sslContext.getSocketFactory());
+			sslContext.init(null,new X509TrustManager[] { new NoCheckTrustManager() },new SecureRandom());
+			connect.setSSLSocketFactory(sslContext.getSocketFactory());
 			connect.connect();
 			final int status = connect.getResponseCode();
-            if (status == HttpURLConnection.HTTP_OK) {
-            	final InputStream in = connect.getInputStream();
-                String encoding = connect.getContentEncoding();
-                if(encoding == null){
-                    encoding = "UTF-8";
-                }
-                final InputStreamReader inReader = new InputStreamReader(in, encoding);
-                final BufferedReader bufReader = new BufferedReader(inReader);
-                String line = null;
-                while((line = bufReader.readLine()) != null) {
-                    result.append(line);
-                }
-                bufReader.close();
-                inReader.close();
-                in.close();
-                if(!result.toString().equals(modVersion)) {
-                	return true;
-                }
-            }
-            return false;
-		}catch(Exception e) {
+			if (status == HttpURLConnection.HTTP_OK) {
+				final InputStream in = connect.getInputStream();
+				String encoding = connect.getContentEncoding();
+				if(encoding == null){
+					encoding = "UTF-8";
+				}
+				final InputStreamReader inReader = new InputStreamReader(in, encoding);
+				final BufferedReader bufReader = new BufferedReader(inReader);
+				String line = null;
+				while((line = bufReader.readLine()) != null) {
+					result.append(line);
+				}
+				bufReader.close();
+				inReader.close();
+				in.close();
+				if(!result.toString().equals(modVersion)) {
+					return true;
+				}
+			}
+			return false;
+		} catch(Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 	public static void noticeInfo(final String modName) {
@@ -62,39 +62,37 @@ public class SiroQModUtils {
 			HttpsURLConnection connect = (HttpsURLConnection)u.openConnection();
 			connect.setRequestMethod("GET");
 			SSLContext sslContext = SSLContext.getInstance("SSL");
-	        sslContext.init(null,new X509TrustManager[] { new NoCheckTrustManager() },new SecureRandom());
-	        connect.setSSLSocketFactory(sslContext.getSocketFactory());
+			sslContext.init(null,new X509TrustManager[] { new NoCheckTrustManager() },new SecureRandom());
+			connect.setSSLSocketFactory(sslContext.getSocketFactory());
 			connect.connect();
 			final int status = connect.getResponseCode();
-            if (status == HttpURLConnection.HTTP_OK) {
-            	final InputStream in = connect.getInputStream();
-                String encoding = connect.getContentEncoding();
-                if(encoding == null){
-                    encoding = "UTF-8";
-                }
-                final InputStreamReader inReader = new InputStreamReader(in, encoding);
-                final BufferedReader bufReader = new BufferedReader(inReader);
-                String line = null;
-                while((line = bufReader.readLine()) != null) {
-                    result.append(line);
-                }
-                bufReader.close();
-                inReader.close();
-                in.close();
-            }
-            new Timer().schedule(new TimerTask() {
-
+			if(status == HttpURLConnection.HTTP_OK) {
+				final InputStream in = connect.getInputStream();
+				String encoding = connect.getContentEncoding();
+				if(encoding == null){
+					encoding = "UTF-8";
+				}
+				final InputStreamReader inReader = new InputStreamReader(in, encoding);
+				final BufferedReader bufReader = new BufferedReader(inReader);
+				String line = null;
+				while((line = bufReader.readLine()) != null) {
+					result.append(line);
+				}
+				bufReader.close();
+				inReader.close();
+				in.close();
+			}
+			new Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
-					 if(Minecraft.getMinecraft().thePlayer != null) {
-			            	if(!result.toString().equals("none")) {
-			            		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§e[§cPvPParticles§e] §a"+result.toString()));
-			            	}
-					 }
+					if(Minecraft.getMinecraft().thePlayer != null) {
+						if(!result.toString().equals("none")) {
+							Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§e[§cPvPParticles§e] §a"+result.toString()));
+						}
+					}
 				}
-
-            }, 5000);
-		}catch(Exception e) {
+			}, 5000);
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
