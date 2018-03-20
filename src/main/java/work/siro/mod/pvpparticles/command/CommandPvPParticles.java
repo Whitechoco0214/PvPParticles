@@ -8,7 +8,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import work.siro.mod.pvpparticles.gui.GuiPvPParticlesSetting;
 
-public class CommandPvPParticles extends CommandBase{
+public class CommandPvPParticles extends CommandBase {
+
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
@@ -33,6 +34,5 @@ public class CommandPvPParticles extends CommandBase{
 	public List<String> getCommandAliases() {
 		return Arrays.asList("pvpp");
 	}
-
 
 }
