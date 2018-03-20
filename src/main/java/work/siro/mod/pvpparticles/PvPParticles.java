@@ -78,7 +78,7 @@ public class PvPParticles
 	    	try {
 	    		propertiesFile.createNewFile();
 	    		properties.setProperty("killeffect", String.valueOf(KillEffect.NONE));
-	    		properties.setProperty("killblock", "0");
+	    		properties.setProperty("killblock", "");
 	    		properties.setProperty("attackeffect", String.valueOf(AttackEffect.SHARPNESS));
 	    		properties.setProperty("traileffect", String.valueOf(TrailEffect.HEART));
 	    		properties.setProperty("servermode", String.valueOf(ServerMode.NORMAL));
@@ -95,10 +95,10 @@ public class PvPParticles
 		    	killEffect = 0;
 		    }
 	    	try {
-	    		killBlockID = Integer.valueOf(properties.getProperty("killblock","0"));
-	    	}catch(NumberFormatException e) {
-	    		killBlockID = 0;
-	    	}
+		    	killBlockID = Integer.valueOf(properties.getProperty("killblock","0"));
+		    }catch(NumberFormatException e) {
+		    	killBlockID = 0;
+		    }
 	    	attackEffect = Integer.valueOf(properties.getProperty("attackeffect","0"));
 	    	trailEffect = Integer.valueOf(properties.getProperty("traileffect","0"));
 	    	serverMode = Integer.valueOf(properties.getProperty("servermode","0"));

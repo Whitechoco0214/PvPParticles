@@ -28,7 +28,11 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 	@Override
 	public void initGui() {
 		blockIdField = new GuiTextField(5,this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 66, 150, 20);
-		blockIdField.setText(String.valueOf(PvPParticles.killBlockID));
+		if(!(PvPParticles.killBlockID == 0)) {
+			blockIdField.setText(String.valueOf(PvPParticles.killBlockID));
+		}else {
+			blockIdField.setText("§7Block ID (Number)");
+		}
 		blockIdField.setFocused(false);
 		blockIdField.setVisible(false);
 		buttonKillParticle = new GuiButton(0, this.width / 2 - 75, this.height / 2 - 44, 150, 20, "");
@@ -81,7 +85,11 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 				break;
 		}
 		nickNameField = new GuiTextField(4, this.fontRendererObj, this.width / 2 - 75, this.height / 2 + 44,150, 20);
-		nickNameField.setText(PvPParticles.nickName);
+		if(!PvPParticles.nickName.isEmpty()) {
+			nickNameField.setText(PvPParticles.nickName);
+		}else {
+			nickNameField.setText("§7Nick Name");
+		}
 		nickNameField.setFocused(true);
 		nickNameField.setVisible(false);
 		buttonModeToggle = new GuiButton(3, this.width / 2 - 75, this.height / 2 + 22, 150 , 20,"");
@@ -261,6 +269,25 @@ public class GuiPvPParticlesSetting extends GuiScreen{
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
 		blockIdField.mouseClicked(mouseX, mouseY, mouseButton);
+		if(nickNameField.isFocused()) {
+			if(nickNameField.getText().equals("§7Nick Name")) {
+				nickNameField.setText("");
+			}
+		}else {
+			if(PvPParticles.nickName.isEmpty()) {
+				nickNameField.setText("§7Nick Name");
+			}
+		}
+
+		if(blockIdField.isFocused()) {
+			if(blockIdField.getText().equals("§7Block ID (Number)")) {
+				blockIdField.setText("");
+			}
+		}else {
+			if(PvPParticles.nickName.isEmpty()) {
+				blockIdField.setText("§7Block ID (Number)");
+			}
+		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
