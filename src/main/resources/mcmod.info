@@ -5,7 +5,7 @@
   "description": "Additional particles for PvP!",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://siro.work/mods/pvpparticles",
   "updateUrl": "",
   "authorList": ["SiroQ"],
   "credits": "SiroQ",
