@@ -1,8 +1,11 @@
 package work.siro.mod.pvpparticles.gui;
 
+import java.awt.Desktop;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -194,8 +197,9 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 				nickNameField.yPosition = this.height / 2 + 44;
 			}
 		}
-		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-66, 16777215);
-		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-55, 16777215);
+		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-77, 16777215);
+		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-66, 16777215);
+		this.fontRendererObj.drawString("Setting: https://siro.work/mods/pvpparticles/setting/", this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/")/2, this.height/2-55, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -311,6 +315,14 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		if(mouseY >= this.height/2-55 && mouseY <= this.height/2-45) {
+			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/")/2+31 && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/")/2+194){
+				try {
+					Desktop.getDesktop().browse(new URI("https://siro.work/mods/pvpparticles/setting/"));
+				} catch (URISyntaxException e) {e.printStackTrace();}
+			}
+
+		}
 		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
 		blockIdField.mouseClicked(mouseX, mouseY, mouseButton);
 		trailParticleField.mouseClicked(mouseX, mouseY, mouseButton);
