@@ -3,6 +3,7 @@ package work.siro.mod.pvpparticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ReportedException;
 import work.siro.mod.pvpparticles.classes.AttackEffect;
 import work.siro.mod.pvpparticles.classes.KillEffect;
 import work.siro.mod.pvpparticles.classes.TrailEffect;
@@ -47,7 +48,7 @@ public class EffectManager {
 					}else {
 						spawnParticle(entity, EnumParticleTypes.valueOf(PvPParticles.trailParticle));
 					}
-				}catch(IllegalArgumentException e) {}
+				}catch(IllegalArgumentException e) {}catch(ReportedException e) {}
 				break;
 		}
 	}
