@@ -61,6 +61,7 @@ public class PvPParticles {
 	public static boolean shotBow;
 	public static boolean sentUpdateInfo = false;
 	public static String nickName;
+	public static String trailParticle;
 	public static SiroQModDebugger debugger = new SiroQModDebugger();
 	public static Properties properties= new Properties();
 	public static File propertiesFile = new File("./PvPParticles.properties");
@@ -80,7 +81,8 @@ public class PvPParticles {
 				properties.setProperty("killeffect", String.valueOf(KillEffect.NONE));
 				properties.setProperty("killblock", "");
 				properties.setProperty("attackeffect", String.valueOf(AttackEffect.SHARPNESS));
-				properties.setProperty("traileffect", String.valueOf(TrailEffect.HEART));
+				properties.setProperty("traileffect", String.valueOf(TrailEffect.PARTICLETRAIL));
+				properties.setProperty("trailparticle", "");
 				properties.setProperty("servermode", String.valueOf(ServerMode.NORMAL));
 				properties.setProperty("nickname", "");
 				properties.store(new FileOutputStream(propertiesFile), "Dont change it!");
@@ -101,6 +103,10 @@ public class PvPParticles {
 			}
 			attackEffect = Integer.valueOf(properties.getProperty("attackeffect","0"));
 			trailEffect = Integer.valueOf(properties.getProperty("traileffect","0"));
+			if(trailEffect > 1) {
+				trailEffect = 0;
+			}
+			trailParticle = properties.getProperty("trailparticle", "");
 			serverMode = Integer.valueOf(properties.getProperty("servermode","0"));
 			nickName = properties.getProperty("nickname","");
 		} catch(Exception e) {

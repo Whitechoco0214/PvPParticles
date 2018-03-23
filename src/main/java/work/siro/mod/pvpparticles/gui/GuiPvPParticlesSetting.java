@@ -25,6 +25,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 	private GuiButton buttonTrailParticle;
 	private GuiButton buttonModeToggle;
 	private static GuiTextField nickNameField;
+	private static GuiTextField trailParticleField;
 
 	@Override
 	public void initGui() {
@@ -70,19 +71,22 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 				buttonAttackParticle.displayString = "Attack: §bEnchant";
 				break;
 		}
+		trailParticleField = new GuiTextField(6, this.fontRendererObj, this.width / 2 - 75, this.height / 2 + 22 , 150, 20);
+		if(!PvPParticles.trailParticle.isEmpty()) {
+			trailParticleField.setText(PvPParticles.trailParticle);
+		}else {
+			trailParticleField.setText("§7Particle Name(See settings)");
+		}
+		trailParticleField.setFocused(false);
+		trailParticleField.setVisible(false);
 		buttonTrailParticle = new GuiButton(2, this.width / 2 - 75, this.height / 2, 150, 20, "");
 		switch(PvPParticles.trailEffect) {
 			case TrailEffect.NONE:
 				buttonTrailParticle.displayString = "Trail: §7None";
 				break;
-			case TrailEffect.HEART:
-				buttonTrailParticle.displayString = "Trail: §dHeart";
-				break;
-			case TrailEffect.NOTE:
-				buttonTrailParticle.displayString = "Trail: §bNote";
-				break;
-			case TrailEffect.GREENSTAR:
-				buttonTrailParticle.displayString = "Trail: §aGreenStar";
+			case TrailEffect.PARTICLETRAIL:
+				buttonTrailParticle.displayString = "Trail: §fParticle Trail";
+				trailParticleField.setVisible(true);
 				break;
 		}
 		nickNameField = new GuiTextField(4, this.fontRendererObj, this.width / 2 - 75, this.height / 2 + 44,150, 20);
@@ -136,6 +140,13 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 				}
 			}
 		}
+
+		if(trailParticleField.getVisible()) {
+			if(trailParticleField.isFocused()) {
+				trailParticleField.textboxKeyTyped(typedChar, keyCode);
+				PvPParticles.trailParticle = trailParticleField.getText().toUpperCase();
+			}
+		}
 		super.keyTyped(typedChar, keyCode);
 	}
 
@@ -144,6 +155,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		super.drawDefaultBackground();
 		nickNameField.drawTextBox();
 		blockIdField.drawTextBox();
+		trailParticleField.drawTextBox();
 		if(blockIdField.getVisible()) {
 			buttonAttackParticle.yPosition = this.height / 2;
 			buttonTrailParticle.yPosition = this.height / 2 + 22;
@@ -154,6 +166,33 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 			buttonTrailParticle.yPosition = this.height / 2;
 			buttonModeToggle.yPosition = this.height /2 + 22;
 			nickNameField.yPosition = this.height / 2 + 44;
+		}
+		if(trailParticleField.getVisible()) {
+			if(blockIdField.getVisible()) {
+				buttonAttackParticle.yPosition = this.height / 2;
+				buttonTrailParticle.yPosition = this.height / 2 + 22;
+				trailParticleField.yPosition = this.height / 2 + 44;
+				buttonModeToggle.yPosition = this.height / 2 + 66;
+				nickNameField.yPosition = this.height / 2 + 88;
+			}else {
+				buttonAttackParticle.yPosition = this.height / 2 - 22;
+				buttonTrailParticle.yPosition = this.height / 2;
+				trailParticleField.yPosition = this.height / 2 + 22;
+				buttonModeToggle.yPosition = this.height /2 + 44;
+				nickNameField.yPosition = this.height / 2 + 66;
+			}
+		}else {
+			if(blockIdField.getVisible()) {
+				buttonAttackParticle.yPosition = this.height / 2;
+				buttonTrailParticle.yPosition = this.height / 2 + 22;
+				buttonModeToggle.yPosition = this.height / 2 + 44;
+				nickNameField.yPosition = this.height / 2 + 66;
+			}else {
+				buttonAttackParticle.yPosition = this.height / 2 - 22;
+				buttonTrailParticle.yPosition = this.height / 2;
+				buttonModeToggle.yPosition = this.height /2 + 22;
+				nickNameField.yPosition = this.height / 2 + 44;
+			}
 		}
 		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-66, 16777215);
 		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-55, 16777215);
@@ -231,19 +270,13 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		} else if(button.id == 2) {
 			switch(PvPParticles.trailEffect) {
 				case TrailEffect.NONE:
-					buttonTrailParticle.displayString = "Trail: §dHeart";
-					PvPParticles.trailEffect = TrailEffect.HEART;
+					buttonTrailParticle.displayString = "Trail: §fParticle Trail";
+					trailParticleField.setVisible(true);
+					PvPParticles.trailEffect = TrailEffect.PARTICLETRAIL;
 					break;
-				case TrailEffect.HEART:
-					buttonTrailParticle.displayString = "Trail: §bNote";
-					PvPParticles.trailEffect = TrailEffect.NOTE;
-					break;
-				case TrailEffect.NOTE:
-					buttonTrailParticle.displayString = "Trail: §aGreenStar";
-					PvPParticles.trailEffect = TrailEffect.GREENSTAR;
-					break;
-				case TrailEffect.GREENSTAR:
+				case TrailEffect.PARTICLETRAIL:
 					buttonTrailParticle.displayString = "Trail: §7None";
+					trailParticleField.setVisible(false);
 					PvPParticles.trailEffect = TrailEffect.NONE;
 					break;
 			}
@@ -272,6 +305,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 	public void updateScreen() {
 		nickNameField.updateCursorCounter();
 		blockIdField.updateCursorCounter();
+		trailParticleField.updateCursorCounter();
 		super.updateScreen();
 	}
 
@@ -279,6 +313,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
 		blockIdField.mouseClicked(mouseX, mouseY, mouseButton);
+		trailParticleField.mouseClicked(mouseX, mouseY, mouseButton);
 		if(nickNameField.isFocused()) {
 			if(nickNameField.getText().equals("§7Nick Name")) {
 				nickNameField.setText("");
@@ -298,6 +333,16 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 				blockIdField.setText("§7Block ID (Number)");
 			}
 		}
+
+		if(trailParticleField.isFocused()) {
+			if(trailParticleField.getText().equals("§7Particle Name(See settings)")) {
+				trailParticleField.setText("");
+			}
+		}else {
+			if(PvPParticles.trailParticle.isEmpty()) {
+				trailParticleField.setText("§7Particle Name(See settings)");
+			}
+		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
@@ -308,8 +353,9 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 			PvPParticles.properties.setProperty("killblock", String.valueOf(blockIdField.getText()));
 			PvPParticles.properties.setProperty("attackeffect", String.valueOf(PvPParticles.attackEffect));
 			PvPParticles.properties.setProperty("traileffect", String.valueOf(PvPParticles.trailEffect));
+			PvPParticles.properties.setProperty("trailparticle", PvPParticles.trailParticle);
 			PvPParticles.properties.setProperty("servermode", String.valueOf(PvPParticles.serverMode));
-			PvPParticles.properties.setProperty("nickname", PvPParticles.nickName);
+			PvPParticles.properties.setProperty("nickname", PvPParticles.nickName.toUpperCase());
 			PvPParticles.properties.store(new FileOutputStream(PvPParticles.propertiesFile), "Dont change it!");
 		} catch(IOException e) {
 			e.printStackTrace();

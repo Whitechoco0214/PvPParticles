@@ -35,18 +35,19 @@ public class EffectManager {
 		switch(PvPParticles.trailEffect) {
 			case TrailEffect.NONE:
 				break;
-			case TrailEffect.HEART:
-				spawnParticle(entity, EnumParticleTypes.HEART);
-				break;
-			case TrailEffect.NOTE:
-				entity.getEntityWorld().spawnParticle(EnumParticleTypes.NOTE, entity.posX, entity.posY, entity.posZ,noteColor/24, 0, 0, new int[0]);
-				noteColor++;
-				if(noteColor >= 25) {
-					noteColor = 0;
-				}
-				break;
-			case TrailEffect.GREENSTAR:
-				spawnParticle(entity, EnumParticleTypes.VILLAGER_HAPPY);
+			case TrailEffect.PARTICLETRAIL:
+				try {
+					EnumParticleTypes particle = EnumParticleTypes.valueOf(PvPParticles.trailParticle);
+					if(particle.equals(EnumParticleTypes.NOTE)) {
+						entity.getEntityWorld().spawnParticle(EnumParticleTypes.NOTE, entity.posX, entity.posY, entity.posZ,noteColor/24, 0, 0, new int[0]);
+						noteColor++;
+						if(noteColor >= 25) {
+							noteColor = 0;
+						}
+					}else {
+						spawnParticle(entity, EnumParticleTypes.valueOf(PvPParticles.trailParticle));
+					}
+				}catch(IllegalArgumentException e) {}
 				break;
 		}
 	}
