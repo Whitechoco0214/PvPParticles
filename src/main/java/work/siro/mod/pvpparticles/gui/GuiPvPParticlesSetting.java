@@ -28,7 +28,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		blockIdField = new GuiTextField(5,this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 66, 150, 20);
+		blockIdField = new GuiTextField(5,this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 22, 150, 20);
 		if(!(PvPParticles.killBlockID == 0)) {
 			blockIdField.setText(String.valueOf(PvPParticles.killBlockID));
 		}else {
@@ -91,7 +91,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		}else {
 			nickNameField.setText("§7Nick Name");
 		}
-		nickNameField.setFocused(true);
+		nickNameField.setFocused(false);
 		nickNameField.setVisible(false);
 		buttonModeToggle = new GuiButton(3, this.width / 2 - 75, this.height / 2 + 22, 150 , 20,"");
 		switch(PvPParticles.serverMode) {
@@ -144,15 +144,19 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		super.drawDefaultBackground();
 		nickNameField.drawTextBox();
 		blockIdField.drawTextBox();
-		if(blockIdField != null) {
-			if(blockIdField.getVisible()) {
-				this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-88, 16777215);
-				this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-77, 16777215);
-			}else {
-				this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-66, 16777215);
-				this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-55, 16777215);
-			}
+		if(blockIdField.getVisible()) {
+			buttonAttackParticle.yPosition = this.height / 2;
+			buttonTrailParticle.yPosition = this.height / 2 + 22;
+			buttonModeToggle.yPosition = this.height / 2 + 44;
+			nickNameField.yPosition = this.height / 2 + 66;
+		}else {
+			buttonAttackParticle.yPosition = this.height / 2 - 22;
+			buttonTrailParticle.yPosition = this.height / 2;
+			buttonModeToggle.yPosition = this.height /2 + 22;
+			nickNameField.yPosition = this.height / 2 + 44;
 		}
+		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-66, 16777215);
+		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-55, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

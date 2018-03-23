@@ -6,7 +6,7 @@ import net.minecraft.util.ChatComponentText;
 public class SiroQModDebugger {
 
 	private int status = 0;
-	private static boolean debugging = false;
+	private static boolean debugging = true;
 	private String debug = "§c§l[DEBUG] ";
 	private String error = "§c§l[ERROR] ";
 
