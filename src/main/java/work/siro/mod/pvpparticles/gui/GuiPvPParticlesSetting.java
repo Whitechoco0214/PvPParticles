@@ -199,7 +199,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		}
 		this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-77, 16777215);
 		this.fontRendererObj.drawString("Contributors: @SimplyRin_, @Rom_0017", this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2, this.height/2-66, 16777215);
-		this.fontRendererObj.drawString("Setting: https://siro.work/mods/pvpparticles/setting/", this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/")/2, this.height/2-55, 16777215);
+		this.fontRendererObj.drawString("Setting: https://siro.work/mods/pvpparticles/", this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/")/2, this.height/2-55, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -316,14 +316,11 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if(mouseY >= this.height/2-55 && mouseY <= this.height/2-45) {
-			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/")/2+mc.fontRendererObj.getStringWidth("Setting: ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/setting/") * 1.5){
+			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/")/2+mc.fontRendererObj.getStringWidth("Setting: ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/pvpparticles/") * 1.5){
 				try {
-					Desktop.getDesktop().browse(new URI("https://siro.work/mods/pvpparticles/setting/"));
+					Desktop.getDesktop().browse(new URI("https://siro.work/mods/pvpparticles/"));
 				} catch (URISyntaxException e) {e.printStackTrace();}
 			}
-			/*
-			 * this.fontRendererObj.drawString("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_", this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2, this.height/2-77, 16777215);
-			 */
 		}else if(mouseY >= this.height/2-66 && mouseY <= this.height/2-56) {
 			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2+mc.fontRendererObj.getStringWidth("Contributors: ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_, @Rom_0017")/2 + mc.fontRendererObj.getStringWidth("Contributors: @SimplyRin_")){
 				try {
