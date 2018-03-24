@@ -50,7 +50,7 @@ import work.siro.mod.pvpparticles.command.CommandPvPParticles;
 @Mod(modid = PvPParticles.MODID, version = PvPParticles.VERSION)
 public class PvPParticles {
 
-	public static Minecraft mc = Minecraft.getMinecraft();
+	protected static Minecraft mc = Minecraft.getMinecraft();
 	public static final String MODID = "pvpparticles";
 	public static final String VERSION = "1.4";
 	public static int attackEffect;
