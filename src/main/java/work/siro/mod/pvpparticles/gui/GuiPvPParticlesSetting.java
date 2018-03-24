@@ -337,7 +337,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 		}else if(mouseY >= this.height/2-77 && mouseY <= this.height/2-67) {
 			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2+mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")/2 + mc.fontRendererObj.getStringWidth("PvP Particle "+PvPParticles.VERSION+" by @SiroQ_")){
 				try {
-					Desktop.getDesktop().browse(new URI("https://twitter.com/SimplyRin_"));
+					Desktop.getDesktop().browse(new URI("https://twitter.com/SiroQ_"));
 				} catch (URISyntaxException e) {e.printStackTrace();}
 			}
 		}
