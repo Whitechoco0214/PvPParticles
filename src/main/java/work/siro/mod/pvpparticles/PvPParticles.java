@@ -256,9 +256,10 @@ public class PvPParticles {
 				}
 			}
 		}
-		if(entity instanceof EntityArrow && shotBow) {
-			projectileEntities.add(entity);
-			shotBow = false;
+		if(entity instanceof EntityArrow) {
+			if(shotBow) {
+				projectileEntities.add(entity);
+			}
 		}
 		if(entity instanceof EntityFishHook) {
 			if(((EntityFishHook) entity).angler.equals(mc.thePlayer)) {
@@ -275,7 +276,7 @@ public class PvPParticles {
 			public void run() {
 				shotBow = false;
 			}
-		}, 750);
+		}, 1000);
 	}
 
 	@SubscribeEvent
