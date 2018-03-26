@@ -356,7 +356,7 @@ public class GuiPvPParticlesSetting extends GuiScreen {
 				blockIdField.setText("");
 			}
 		} else {
-			if(PvPParticles.nickName.isEmpty()) {
+			if(PvPParticles.killBlockID == 0) {
 				blockIdField.setText("§7Block ID (Number)");
 			}
 		}
