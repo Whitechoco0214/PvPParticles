@@ -19,6 +19,7 @@ public class EffectManager {
 			case KillEffect.BLOCKBREAK:
 				playBlockBreak(entity,PvPParticles.killBlockID);
 				break;
+                                return;
 		}
 	}
 
@@ -29,6 +30,7 @@ public class EffectManager {
 			case KillEffect.BLOCKBREAK:
 				playBlockBreak(x,y,z,eyeHeight,PvPParticles.killBlockID);
 				break;
+　　　　　　　　　　　　　　　　　 return;
 		}
 	}
 
