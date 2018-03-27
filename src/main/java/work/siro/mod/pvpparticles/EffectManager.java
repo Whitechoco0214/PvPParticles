@@ -28,6 +28,7 @@ public class EffectManager {
 				break;
 			case KillEffect.BLOCKBREAK:
 				playBlockBreak(x,y,z,eyeHeight,PvPParticles.killBlockID);
+                                playBlockBreak(x,y,z,eyeHeight,PvPParticles.killBlockID);
 				break;
 		}
 	}
